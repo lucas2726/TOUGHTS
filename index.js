@@ -6,7 +6,11 @@ const flash = require("express-flash")
 
 const app = express()
 
-const conn = require("./database/conn")
+const connection = require("./database/database")
+
+//Models
+const Tought = require("./models/Tought")
+const User = require("./models/User")
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
@@ -45,6 +49,13 @@ app.use((req, res, next) => {
     }
     next()
 })
+
+connection.authenticate()
+    .then(() => {
+        console.log("Conexão estabelecida com sucesso")
+    }).catch(err => {
+        console.log(`Não foi possível se conectar ${err}`)
+    })
 
 app.listen(3000, () => {
     console.log("Conectado ao servidor")
