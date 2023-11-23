@@ -12,6 +12,14 @@ const connection = require("./database/database")
 const Tought = require("./models/Tought")
 const User = require("./models/User")
 
+//import Routes
+const toughtsRoutes = require("./routes/toughtsRoutes");
+const authRoutes = require("./routes/authRoutes")
+
+//Import controller
+const ToughtController = require("./controllers/ToughtController");
+
+
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 
@@ -50,7 +58,13 @@ app.use((req, res, next) => {
     next()
 })
 
-connection.sync({force: true})
+//Routes
+app.use("/toughts", toughtsRoutes)
+app.use("/", authRoutes)
+
+app.get("/", ToughtController.showToughts)
+
+connection.sync()
 .then(() => {
     app.listen(3000, () => {
         console.log("Conectado ao servidor")
