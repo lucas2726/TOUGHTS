@@ -50,13 +50,11 @@ app.use((req, res, next) => {
     next()
 })
 
-connection.authenticate()
-    .then(() => {
-        console.log("Conexão estabelecida com sucesso")
-    }).catch(err => {
-        console.log(`Não foi possível se conectar ${err}`)
-    })
-
-app.listen(3000, () => {
-    console.log("Conectado ao servidor")
+connection.sync({force: true})
+.then(() => {
+    app.listen(3000, () => {
+        console.log("Conectado ao servidor")
+    })  
+}).catch((err) => {
+    console.log(err)
 })
