@@ -1,16 +1,17 @@
-const Sequelize = require("sequelize")
-const connection = require("../database/database")
-const User = require("./User")
+const { DataTypes } = require("sequelize");
 
+const db = require("../db/conn");
 
-const Tought = connection.define('Tought', {
-    title: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
-})
+const User = require("../models/User");
 
-Tought.belongsTo(User)
-User.hasMany(Tought)
+const Tought = db.define("Tought", {
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
 
-module.exports = Tought
+Tought.belongsTo(User);
+User.hasMany(Tought);
+
+module.exports = Tought;
