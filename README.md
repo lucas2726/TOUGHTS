@@ -1,2 +1,2 @@
-# TOUGHTS
+#TOUGHTS
  Projeto de site de pensamentos
